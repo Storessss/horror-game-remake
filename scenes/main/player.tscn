@@ -1,0 +1,127 @@
+[gd_scene load_steps=16 format=3 uid="uid://dm303ra00yjxp"]
+
+[ext_resource type="Script" uid="uid://cebxyyoh6c3xl" path="res://scenes/main/player.gd" id="1_2idcg"]
+[ext_resource type="Texture2D" uid="uid://badugikjms0yt" path="res://sprites/engineer_idle1.png" id="1_riacy"]
+[ext_resource type="Texture2D" uid="uid://btblkwhuwpwat" path="res://sprites/engineer_idle2.png" id="2_q2ck2"]
+[ext_resource type="Texture2D" uid="uid://biyaa43tx1jjt" path="res://sprites/engineer_sprint1.png" id="3_u2d4w"]
+[ext_resource type="Texture2D" uid="uid://bw1yo1ohrfujd" path="res://sprites/engineer_sprint2.png" id="4_nsfi6"]
+[ext_resource type="Texture2D" uid="uid://cjre7tqrtdxd" path="res://sprites/engineer_walk1.png" id="5_2idcg"]
+[ext_resource type="Texture2D" uid="uid://djx56cxf8dj57" path="res://sprites/engineer_walk2.png" id="6_0f7gw"]
+[ext_resource type="Texture2D" uid="uid://dq4ftryof4bt5" path="res://sprites/torch_light.png" id="7_nsfi6"]
+[ext_resource type="Texture2D" uid="uid://dqbpgugmyice" path="res://sprites/light.png" id="8_2idcg"]
+[ext_resource type="Texture2D" uid="uid://cnjtfa4yvy41a" path="res://sprites/sprint_bar.png" id="10_0f7gw"]
+[ext_resource type="Texture2D" uid="uid://c3g221cgqg6uw" path="res://icon.svg" id="11_0f7gw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0r2ug"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_riacy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_q2ck2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_u2d4w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_nsfi6")
+}],
+"loop": true,
+"name": &"sprint",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_2idcg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0f7gw")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 1.8
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_riacy"]
+size = Vector2(8, 18)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2idcg"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:animation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("TorchLight:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("TorchLight:visible")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("AnimatedSprite2D:frame")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("AnimatedSprite2D:flip_h")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Sprite2D:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_2idcg"]
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_2idcg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0r2ug")
+animation = &"idle"
+frame_progress = 0.6748689
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_riacy")
+
+[node name="TorchLight" type="PointLight2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("7_nsfi6")
+offset = Vector2(100.5, -0.5)
+texture_scale = 0.2
+
+[node name="PlayerSmallLight" type="PointLight2D" parent="."]
+texture = ExtResource("8_2idcg")
+texture_scale = 0.5
+
+[node name="StaminaBar" type="TextureProgressBar" parent="."]
+offset_left = -25.0
+offset_top = -22.0
+offset_right = 25.0
+offset_bottom = -17.0
+texture_progress = ExtResource("10_0f7gw")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_2idcg")
+
+[node name="Capture" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamMicrophone_2idcg")
+autoplay = true
+bus = &"Microphone"
+
+[node name="Voice" type="AudioStreamPlayer2D" parent="."]
+autoplay = true
+max_distance = 500.0
+bus = &"Voice"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -17.999998)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("11_0f7gw")

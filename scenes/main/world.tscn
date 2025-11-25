@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://jbus63oi31f1"]
+
+[ext_resource type="Script" uid="uid://j4dr5sj0hcmd" path="res://scenes/main/world.gd" id="1_iubku"]
+[ext_resource type="Texture2D" uid="uid://c3g221cgqg6uw" path="res://icon.svg" id="2_y2s00"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_iubku")
+
+[node name="Icon" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(127, 12)
+texture = ExtResource("2_y2s00")
+
+[node name="Host" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Host"
+
+[node name="Join" type="Button" parent="."]
+offset_top = 31.0
+offset_right = 38.0
+offset_bottom = 62.0
+text = "Join"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://dm303ra00yjxp")
+spawn_path = NodePath("..")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
