@@ -104,7 +104,7 @@ func _process(delta: float) -> void:
 	if $AnimatedSprite2D.animation == "sprint" or $AnimatedSprite2D.animation == "walk":
 		var current_frame = $AnimatedSprite2D.frame
 		if current_frame != previous_frame:
-			#footsteps()
+			rpc("play_footsteps", global_position)
 			previous_frame = current_frame
 		
 		
@@ -112,13 +112,24 @@ func _process(delta: float) -> void:
 		var frames: PackedVector2Array = capture_effect.get_buffer(512)
 		if frames.size() > 0:
 			rpc("send_voice_chunk", frames)
+			
 @rpc("any_peer")
 func send_voice_chunk(frames: PackedVector2Array) -> void:
 	for frame in frames:
 		playback.push_frame(frame)
-#func footsteps() -> void:
-	#var sound_player = preload("res://scenes/game/sound_player.tscn")
-	#sound_player = sound_player.instantiate()
-	#sound_player.type = "player"
-	#sound_player.volume_db = -5
-	#add_child(sound_player)
+
+@rpc("any_peer", "call_local")
+func play_footsteps(position: Vector2) -> void:
+	var sound_player: AudioStreamPlayer2D = MusicPlayer.create_sound_player([
+			preload("res://sounds/footsteps-1.wav"),
+			preload("res://sounds/footsteps-2.wav"),
+			preload("res://sounds/footsteps-3.wav"),
+			preload("res://sounds/footsteps-4.wav"),
+			preload("res://sounds/footsteps-5.wav"),
+			preload("res://sounds/footsteps-6.wav"),
+			preload("res://sounds/footsteps-7.wav"),
+			preload("res://sounds/footsteps-8.wav"),
+			preload("res://sounds/footsteps-9.wav"),
+			preload("res://sounds/footsteps-10.wav"),
+			preload("res://sounds/footsteps-11.wav"),
+		], position, 500, -5)

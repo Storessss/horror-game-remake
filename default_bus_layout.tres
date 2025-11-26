@@ -5,21 +5,11 @@ resource_name = "Capture"
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_j3pel"]
 resource_name = "Reverb"
-room_size = 0.7
-damping = 0.2
-spread = 0.7
-hipass = 0.4
-wet = 0.4
+room_size = 0.9
+damping = 0.7
 
-[sub_resource type="AudioEffectDelay" id="AudioEffectDelay_j3pel"]
-resource_name = "Delay"
-tap1_delay_ms = 300.0
-tap1_pan = -0.3
-tap2_delay_ms = 400.0
-tap2_pan = 0.0
-feedback_active = true
-feedback_delay_ms = 300.0
-feedback_lowpass = 4000.0
+[sub_resource type="AudioEffectEQ10" id="AudioEffectEQ10_j3pel"]
+resource_name = "EQ10"
 
 [resource]
 bus/1/name = &"Microphone"
@@ -38,5 +28,5 @@ bus/2/volume_db = 0.0
 bus/2/send = &"Master"
 bus/2/effect/0/effect = SubResource("AudioEffectReverb_j3pel")
 bus/2/effect/0/enabled = true
-bus/2/effect/1/effect = SubResource("AudioEffectDelay_j3pel")
+bus/2/effect/1/effect = SubResource("AudioEffectEQ10_j3pel")
 bus/2/effect/1/enabled = true

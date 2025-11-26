@@ -89,14 +89,15 @@ frame_progress = 0.6748689
 shape = SubResource("RectangleShape2D_riacy")
 
 [node name="TorchLight" type="PointLight2D" parent="."]
-position = Vector2(0, -9)
+position = Vector2(0, -1)
+shadow_enabled = true
 texture = ExtResource("7_nsfi6")
 offset = Vector2(100.5, -0.5)
 texture_scale = 0.2
 
-[node name="PlayerSmallLight" type="PointLight2D" parent="."]
+[node name="PlayerLight" type="PointLight2D" parent="."]
 texture = ExtResource("8_2idcg")
-texture_scale = 0.5
+texture_scale = 0.38
 
 [node name="StaminaBar" type="TextureProgressBar" parent="."]
 offset_left = -25.0
@@ -117,6 +118,7 @@ autoplay = true
 bus = &"Microphone"
 
 [node name="Voice" type="AudioStreamPlayer2D" parent="."]
+volume_db = 8.0
 autoplay = true
 max_distance = 500.0
 bus = &"Voice"

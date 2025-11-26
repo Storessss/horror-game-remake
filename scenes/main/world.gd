@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var camera: Camera2D = $Camera2D
+@onready var multiplayer_menu: CanvasLayer = $MultiplayerMenu
 
 var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 @export var player_scene: PackedScene = preload("res://scenes/main/player.tscn")
@@ -10,12 +10,12 @@ func _on_host_pressed() -> void:
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(add_player)
 	add_player()
-	camera.enabled = false
+	multiplayer_menu.visible = false
 	
 func _on_join_pressed() -> void:
 	peer.create_client("127.0.0.1", 2525)
 	multiplayer.multiplayer_peer = peer
-	camera.enabled = false
+	multiplayer_menu.visible = false
 
 func add_player(id: int = 1) -> void:
 	var player: CharacterBody2D = player_scene.instantiate()
@@ -29,5 +29,6 @@ func exit_game(id: int) -> void:
 func del_player(id: int) -> void:
 	rpc("_del_player", id)
 
-@rpc("any_peer", "call_local") func _del_player(id: int) -> void:
+@rpc("any_peer", "call_local") 
+func _del_player(id: int) -> void:
 	get_node(str(id)).queue_free()
