@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+class_name Player
+
+@onready var voice_player: AudioStreamPlayer2D = $Voice
+
 @export var walk_speed: int = 120
 @export var sprint_speed: int = 230
 @export var max_stamina: float = 6.0
@@ -111,17 +115,17 @@ func _process(delta: float) -> void:
 	if capture_effect and mic_enabled:
 		var frames: PackedVector2Array = capture_effect.get_buffer(512)
 		if frames.size() > 0:
-			rpc("send_voice_chunk", frames, $Voice)
+			rpc("send_voice_chunk", frames, get_multiplayer_authority())
 			
 @rpc("any_peer")
-func send_voice_chunk(frames: PackedVector2Array, voice_player: AudioStreamPlayer2D) -> void:
+func send_voice_chunk(frames: PackedVector2Array, caller_id: int) -> void:
 	for frame in frames:
 		playback.push_frame(frame)
-	if GlobalVariables.line_of_sight(get_tree().current_scene.get_node(str(get_multiplayer_authority())).\
-	global_position, voice_player.global_position):
-		voice_player.bus = "MuffledVoice"
+	var caller: Player = GlobalVariables.get_player(caller_id)
+	if GlobalVariables.line_of_sight(global_position, caller.global_position):
+		caller.voice_player.bus = "MuffledVoice"
 	else:
-		voice_player.bus = "Voice"
+		caller.voice_player.bus = "Voice"
 
 @rpc("any_peer", "call_local")
 func play_footsteps(audio_position: Vector2) -> void:
