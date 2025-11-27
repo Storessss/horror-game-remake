@@ -76,7 +76,7 @@ properties/6/replication_mode = 1
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_2idcg"]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["players"]]
 collision_layer = 2
 script = ExtResource("1_2idcg")
 

@@ -108,7 +108,7 @@ func _process(delta: float) -> void:
 	if $AnimatedSprite2D.animation == "sprint" or $AnimatedSprite2D.animation == "walk":
 		var current_frame = $AnimatedSprite2D.frame
 		if current_frame != previous_frame:
-			rpc("play_footsteps", global_position)
+			rpc("play_footstep", global_position)
 			previous_frame = current_frame
 		
 		
@@ -119,26 +119,27 @@ func _process(delta: float) -> void:
 			
 @rpc("any_peer")
 func send_voice_chunk(frames: PackedVector2Array, caller_id: int) -> void:
-	for frame in frames:
-		playback.push_frame(frame)
 	var caller: Player = GlobalVariables.get_player(caller_id)
-	if GlobalVariables.line_of_sight(global_position, caller.global_position):
+	for frame in frames:
+		caller.playback.push_frame(frame)
+	if GlobalVariables.line_of_sight(GlobalVariables.get_local_player().global_position,\
+	 caller.global_position):
 		caller.voice_player.bus = "MuffledVoice"
 	else:
 		caller.voice_player.bus = "Voice"
 
 @rpc("any_peer", "call_local")
-func play_footsteps(audio_position: Vector2) -> void:
+func play_footstep(audio_position: Vector2) -> void:
 	var sound_player: AudioStreamPlayer2D = MusicPlayer.create_sound_player([
-			preload("res://sounds/footsteps-1.wav"),
-			preload("res://sounds/footsteps-2.wav"),
-			preload("res://sounds/footsteps-3.wav"),
-			preload("res://sounds/footsteps-4.wav"),
-			preload("res://sounds/footsteps-5.wav"),
-			preload("res://sounds/footsteps-6.wav"),
-			preload("res://sounds/footsteps-7.wav"),
-			preload("res://sounds/footsteps-8.wav"),
-			preload("res://sounds/footsteps-9.wav"),
-			preload("res://sounds/footsteps-10.wav"),
-			preload("res://sounds/footsteps-11.wav"),
+			preload("res://sounds/footstep1.wav"),
+			preload("res://sounds/footstep2.wav"),
+			preload("res://sounds/footstep3.wav"),
+			preload("res://sounds/footstep4.wav"),
+			preload("res://sounds/footstep5.wav"),
+			preload("res://sounds/footstep6.wav"),
+			preload("res://sounds/footstep7.wav"),
+			preload("res://sounds/footstep8.wav"),
+			preload("res://sounds/footstep9.wav"),
+			preload("res://sounds/footstep10.wav"),
+			preload("res://sounds/footstep11.wav"),
 		], audio_position, 500, -5)
