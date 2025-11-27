@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://5m0e4mc463xk"]
+[gd_resource type="AudioBusLayout" load_steps=6 format=3 uid="uid://5m0e4mc463xk"]
 
 [sub_resource type="AudioEffectCapture" id="AudioEffectCapture_j3pel"]
 resource_name = "Capture"
@@ -10,6 +10,13 @@ damping = 0.7
 
 [sub_resource type="AudioEffectEQ10" id="AudioEffectEQ10_j3pel"]
 resource_name = "EQ10"
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_j3pel"]
+resource_name = "Chorus"
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_j3pel"]
+resource_name = "PitchShift"
+pitch_scale = 1.5
 
 [resource]
 bus/1/name = &"Microphone"
@@ -30,3 +37,17 @@ bus/2/effect/0/effect = SubResource("AudioEffectReverb_j3pel")
 bus/2/effect/0/enabled = true
 bus/2/effect/1/effect = SubResource("AudioEffectEQ10_j3pel")
 bus/2/effect/1/enabled = true
+bus/3/name = &"MuffledVoice"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = 0.0
+bus/3/send = &"Master"
+bus/3/effect/0/effect = SubResource("AudioEffectReverb_j3pel")
+bus/3/effect/0/enabled = true
+bus/3/effect/1/effect = SubResource("AudioEffectEQ10_j3pel")
+bus/3/effect/1/enabled = true
+bus/3/effect/2/effect = SubResource("AudioEffectChorus_j3pel")
+bus/3/effect/2/enabled = true
+bus/3/effect/3/effect = SubResource("AudioEffectPitchShift_j3pel")
+bus/3/effect/3/enabled = true

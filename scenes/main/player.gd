@@ -111,15 +111,20 @@ func _process(delta: float) -> void:
 	if capture_effect and mic_enabled:
 		var frames: PackedVector2Array = capture_effect.get_buffer(512)
 		if frames.size() > 0:
-			rpc("send_voice_chunk", frames)
+			rpc("send_voice_chunk", frames, $Voice)
 			
 @rpc("any_peer")
-func send_voice_chunk(frames: PackedVector2Array) -> void:
+func send_voice_chunk(frames: PackedVector2Array, voice_player: AudioStreamPlayer2D) -> void:
 	for frame in frames:
 		playback.push_frame(frame)
+	if GlobalVariables.line_of_sight(get_tree().current_scene.get_node(str(get_multiplayer_authority())).\
+	global_position, voice_player.global_position):
+		voice_player.bus = "MuffledVoice"
+	else:
+		voice_player.bus = "Voice"
 
 @rpc("any_peer", "call_local")
-func play_footsteps(position: Vector2) -> void:
+func play_footsteps(audio_position: Vector2) -> void:
 	var sound_player: AudioStreamPlayer2D = MusicPlayer.create_sound_player([
 			preload("res://sounds/footsteps-1.wav"),
 			preload("res://sounds/footsteps-2.wav"),
@@ -132,4 +137,4 @@ func play_footsteps(position: Vector2) -> void:
 			preload("res://sounds/footsteps-9.wav"),
 			preload("res://sounds/footsteps-10.wav"),
 			preload("res://sounds/footsteps-11.wav"),
-		], position, 500, -5)
+		], audio_position, 500, -5)

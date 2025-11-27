@@ -2,8 +2,8 @@ extends Node
 
 var sound_players: Array
 
-func create_sound_player(streams: Array[AudioStream], position: Vector2, max_distance: int = 500, \
-db: int = 0, spatial: bool = true):
+func create_sound_player(streams: Array[AudioStream], audio_position: Vector2, \
+max_distance: int = 500, db: int = 0, spatial: bool = true):
 	var sound_player
 	if spatial:
 		sound_player = AudioStreamPlayer2D.new()
@@ -13,7 +13,7 @@ db: int = 0, spatial: bool = true):
 	sound_player.volume_db = db
 	sound_player.max_distance = max_distance
 	sound_players.append(sound_player)
-	sound_player.global_position = position
+	sound_player.global_position = audio_position
 	get_tree().current_scene.add_child(sound_player)
 	sound_player.play()
 	return sound_player
