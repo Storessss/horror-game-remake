@@ -83,7 +83,7 @@ script = ExtResource("1_2idcg")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0r2ug")
 animation = &"idle"
-frame_progress = 0.6748689
+frame_progress = 0.674869
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_riacy")
@@ -124,6 +124,6 @@ max_distance = 500.0
 bus = &"Voice"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -17.999998)
+position = Vector2(0, -18)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("11_0f7gw")

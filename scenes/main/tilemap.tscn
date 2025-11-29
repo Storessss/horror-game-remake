@@ -34,4 +34,5 @@ navigation_layer_0/layers = 1
 sources/1 = SubResource("TileSetAtlasSource_n7io0")
 
 [node name="Tilemap" type="TileMapLayer"]
+z_index = -2000
 tile_set = SubResource("TileSet_ocvdn")

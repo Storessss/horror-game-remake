@@ -124,9 +124,9 @@ func send_voice_chunk(frames: PackedVector2Array, caller_id: int) -> void:
 		caller.playback.push_frame(frame)
 	if GlobalVariables.line_of_sight(GlobalVariables.get_local_player().global_position,\
 	 caller.global_position):
-		caller.voice_player.bus = "MuffledVoice"
-	else:
 		caller.voice_player.bus = "Voice"
+	else:
+		caller.voice_player.bus = "MuffledVoice"
 
 @rpc("any_peer", "call_local")
 func play_footstep(audio_position: Vector2) -> void:

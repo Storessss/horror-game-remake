@@ -5,6 +5,8 @@ extends Node2D
 var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 @export var player_scene: PackedScene = preload("res://scenes/main/player.tscn")
 
+var can_start_game: bool = true
+
 func _on_host_pressed() -> void:
 	peer.create_server(2525)
 	multiplayer.multiplayer_peer = peer
@@ -32,3 +34,19 @@ func del_player(id: int) -> void:
 @rpc("any_peer", "call_local") 
 func _del_player(id: int) -> void:
 	get_node(str(id)).queue_free()
+	
+func _process(_delta: float) -> void:
+	if GlobalVariables.is_host() and can_start_game and Input.is_action_just_pressed("ui_accept"):
+		can_start_game = false
+		randomize()
+		rpc("set_seed", randi_range(0, 999999))
+		rpc("start_game")
+	
+@rpc("any_peer", "call_local")
+func set_seed(seed: int):
+	seed(seed)
+
+@rpc("any_peer", "call_local")
+func start_game() -> void:
+	var room: Room = preload("res://scenes/rooms/base_room.tscn").instantiate()
+	add_child(room)
