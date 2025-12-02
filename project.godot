@@ -103,4 +103,4 @@ switch_flashlight={
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+environment/defaults/default_clear_color=Color(0.16511115, 0.1625897, 0.21807006, 1)

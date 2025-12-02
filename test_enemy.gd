@@ -5,8 +5,8 @@ var direction: Vector2
 
 func _process(_delta: float) -> void:
 	var p = Vector2.ZERO
-	if GlobalVariables.get_player(1):
-		p = GlobalVariables.get_player(1).global_position
+	if GlobalVariables.get_local_player():
+		p = GlobalVariables.get_local_player().global_position
 	nav.target_position = p
 	var next_position = nav.get_next_path_position()
 	direction = (next_position - global_position).normalized()

@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://duwkxk05kkunm" path="res://sprites/tileset.png" id="1_vy5k1"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vy5k1"]
-polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8, -8, -8)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_6xm5q"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -34,5 +34,5 @@ navigation_layer_0/layers = 1
 sources/1 = SubResource("TileSetAtlasSource_n7io0")
 
 [node name="Tilemap" type="TileMapLayer"]
-z_index = -2000
+z_index = -1000
 tile_set = SubResource("TileSet_ocvdn")

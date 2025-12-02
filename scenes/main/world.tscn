@@ -42,8 +42,15 @@ theme_override_font_sizes/font_size = 50
 text = "Join"
 
 [node name="Darkness" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1001
+offset_left = -500000.0
+offset_top = -500000.0
+offset_right = 500000.0
+offset_bottom = 500000.0
+color = Color(0.3355452, 0.19688004, 0.1485486, 1)
 
 [connection signal="pressed" from="MultiplayerMenu/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="MultiplayerMenu/Join" to="." method="_on_join_pressed"]

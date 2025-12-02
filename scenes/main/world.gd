@@ -41,6 +41,8 @@ func _process(_delta: float) -> void:
 		randomize()
 		rpc("set_seed", randi_range(0, 999999))
 		rpc("start_game")
+	if Input.is_action_just_pressed("ui_accept"):
+		$Darkness.visible = not $Darkness.visible
 	
 @rpc("any_peer", "call_local")
 func set_seed(seed: int):
@@ -48,5 +50,5 @@ func set_seed(seed: int):
 
 @rpc("any_peer", "call_local")
 func start_game() -> void:
-	var room: Room = preload("res://scenes/rooms/base_room.tscn").instantiate()
+	var room: Room = GlobalVariables.rooms[0].instantiate()
 	add_child(room)
