@@ -33,6 +33,7 @@ window/stretch/mode="viewport"
 [global_group]
 
 players=""
+doors=""
 
 [input]
 

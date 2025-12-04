@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://jbus63oi31f1"]
+[gd_scene load_steps=3 format=3 uid="uid://jbus63oi31f1"]
 
 [ext_resource type="Script" uid="uid://j4dr5sj0hcmd" path="res://scenes/main/world.gd" id="1_iubku"]
+[ext_resource type="Texture2D" uid="uid://cn8in08m7mt3f" path="res://sprites/dirt.png" id="2_iubku"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_iubku")
@@ -44,13 +45,14 @@ text = "Join"
 [node name="Darkness" type="CanvasModulate" parent="."]
 color = Color(0, 0, 0, 1)
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="BackgroundDirt" type="TextureRect" parent="."]
 z_index = -1001
 offset_left = -500000.0
 offset_top = -500000.0
 offset_right = 500000.0
 offset_bottom = 500000.0
-color = Color(0.3355452, 0.19688004, 0.1485486, 1)
+texture = ExtResource("2_iubku")
+stretch_mode = 1
 
 [connection signal="pressed" from="MultiplayerMenu/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="MultiplayerMenu/Join" to="." method="_on_join_pressed"]

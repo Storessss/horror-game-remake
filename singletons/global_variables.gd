@@ -1,12 +1,11 @@
 extends Node
 
-var room_count: int = 300
+var room_count: int = 100
 var rooms: Array[PackedScene] = [
 	preload("res://scenes/rooms/base_room.tscn"),
-	#preload("res://scenes/rooms/corridoor_room.tscn"),
+	preload("res://scenes/rooms/corridoor_room.tscn"),
 ]
 var room_rects: Array[Rect2]
-var generated_rooms: Array[Room]
 
 func get_player(id: int) -> Player:
 	var player: Player = get_tree().current_scene.get_node(str(id))
@@ -49,14 +48,10 @@ func _on_generate_room(previous_room_position: Vector2, previous_room_size: Vect
 				var new_room_direction: Vector2 = convert_direction_format(exit_direction)
 				if previous_direction == -new_room_direction:
 					direction_check_passed = true
-		room.previous_room_size = previous_room_size
 		room.previous_direction = previous_direction
-		room.global_position = previous_room_position
+		room.global_position = previous_room_position + previous_room_size * previous_direction
 		get_tree().current_scene.add_child(room)
-	else:
-		for generated_room in generated_rooms:
-			generated_room.setup_exits(generated_room.room_position, generated_room.room_size)
-
+		
 enum Directions {
 	LEFT,
 	RIGHT,

@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bwjlymcvc1ll2"]
+[gd_scene load_steps=9 format=3 uid="uid://bwjlymcvc1ll2"]
 
 [ext_resource type="Texture2D" uid="uid://duwkxk05kkunm" path="res://sprites/tileset.png" id="1_vy5k1"]
+[ext_resource type="Script" uid="uid://cp2cim07w6j1k" path="res://scenes/main/tilemap.gd" id="2_lnlhx"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vy5k1"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8, -8, -8)
@@ -10,6 +11,9 @@ vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
 agent_radius = 0.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lnlhx"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_d6q17"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -26,6 +30,9 @@ texture = ExtResource("1_vy5k1")
 0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_6xm5q")
 1:1/0 = 0
 1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_d6q17")
+1:0/0 = 0
+1:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_lnlhx")
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_ocvdn"]
 occlusion_layer_0/light_mask = 1
@@ -36,3 +43,4 @@ sources/1 = SubResource("TileSetAtlasSource_n7io0")
 [node name="Tilemap" type="TileMapLayer"]
 z_index = -1000
 tile_set = SubResource("TileSet_ocvdn")
+script = ExtResource("2_lnlhx")

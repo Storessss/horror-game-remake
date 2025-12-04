@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://rgsif5mqudtv"]
+
+[ext_resource type="Script" uid="uid://cpvcnjit42b0r" path="res://scenes/main/door_manager.gd" id="1_5k86h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bn1ck"]
+size = Vector2(24, 12)
+
+[node name="DoorManager" type="Area2D" groups=["doors"]]
+script = ExtResource("1_5k86h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_bn1ck")
+
+[node name="Node2D1" type="Node2D" parent="."]
+position = Vector2(-8, 8)
+
+[node name="Node2D2" type="Node2D" parent="."]
+position = Vector2(8, 8)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

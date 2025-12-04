@@ -7,3 +7,5 @@
 script = ExtResource("1_l8042")
 
 [node name="Tilemap" parent="." instance=ExtResource("2_xlkwu")]
+
+[node name="Doors" type="Node2D" parent="."]
