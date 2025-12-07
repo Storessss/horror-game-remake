@@ -52,3 +52,7 @@ func set_seed(seed: int):
 func start_game() -> void:
 	var room: Room = GlobalVariables.rooms[0].instantiate()
 	add_child(room)
+	GlobalVariables.get_local_player().global_position = room.global_position + room.room_size / 2
+	var robot: Entity = preload("res://scenes/entities/robot.tscn").instantiate()
+	robot.global_position = room.global_position + room.room_size / 2
+	add_child(robot)

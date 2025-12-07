@@ -49,7 +49,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_riacy"]
-size = Vector2(6, 13)
+size = Vector2(6, 11)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2idcg"]
 properties/0/path = NodePath(".:position")
@@ -82,13 +82,11 @@ script = ExtResource("1_2idcg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0r2ug")
-animation = &"idle"
-frame_progress = 0.674869
+animation = &"sprint"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_riacy")
-disabled = true
 
 [node name="TorchLight" type="PointLight2D" parent="."]
 position = Vector2(0, -1)

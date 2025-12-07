@@ -6,6 +6,7 @@ var rooms: Array[PackedScene] = [
 	preload("res://scenes/rooms/corridoor_room.tscn"),
 ]
 var room_rects: Array[Rect2]
+var move_points: Array[Node2D]
 
 func get_player(id: int) -> Player:
 	var player: Player = get_tree().current_scene.get_node(str(id))

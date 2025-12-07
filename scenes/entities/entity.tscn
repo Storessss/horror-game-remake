@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://decx5gy2k1l70"]
+
+[ext_resource type="Script" uid="uid://co30wnwws542r" path="res://scenes/entities/Entity.gd" id="1_wcjeu"]
+[ext_resource type="Script" uid="uid://d1aamok75g7w6" path="res://scenes/entities/state_machine/state_machine.gd" id="2_o12gi"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wcjeu"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:animation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("AnimatedSprite2D:frame")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="Entity" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_wcjeu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_wcjeu")
+
+[node name="FSM" type="Node" parent="."]
+script = ExtResource("2_o12gi")

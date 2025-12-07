@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://dc3se7ecdo8nr"]
+
+[ext_resource type="PackedScene" uid="uid://decx5gy2k1l70" path="res://scenes/entities/entity.tscn" id="1_b251y"]
+[ext_resource type="Texture2D" uid="uid://bdercprs26atf" path="res://sprites/robot_chase1.png" id="2_dbhwj"]
+[ext_resource type="Texture2D" uid="uid://bdunsqja6cufx" path="res://sprites/robot_chase2.png" id="3_q57l7"]
+[ext_resource type="Texture2D" uid="uid://ski827u01j7h" path="res://sprites/robot.png" id="4_bg8sc"]
+[ext_resource type="Texture2D" uid="uid://brp4ut7f68dnm" path="res://sprites/robot_walk1.png" id="5_r2ewj"]
+[ext_resource type="Texture2D" uid="uid://tobn0jyupee4" path="res://sprites/robot_walk2.png" id="6_bqcuw"]
+[ext_resource type="Script" uid="uid://cemaql1lswtlq" path="res://scenes/entities/state_machine/states/Roam.gd" id="7_bg8sc"]
+[ext_resource type="Script" uid="uid://brh5nvmvk0w5y" path="res://scenes/entities/state_machine/states/Chase.gd" id="8_r2ewj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cmwni"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dbhwj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q57l7")
+}],
+"loop": true,
+"name": &"chase",
+"speed": 3.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_bg8sc")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_r2ewj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_bqcuw")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 1.5
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dbhwj"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q57l7"]
+radius = 5.0
+
+[node name="Robot" instance=ExtResource("1_b251y")]
+speed = 100
+sight_cone_width = 60
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_cmwni")
+animation = &"chase"
+frame_progress = 0.29250357
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_dbhwj")
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_q57l7")
+
+[node name="FSM" parent="." index="5" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Roam")
+
+[node name="Roam" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("on_player_spotted")]
+script = ExtResource("7_bg8sc")
+animation = "walk"
+on_player_spotted = NodePath("../Chase")
+
+[node name="Chase" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("on_player_lost")]
+script = ExtResource("8_r2ewj")
+pursue_time = 4.0
+animation = "chase"
+on_player_lost = NodePath("../Roam")

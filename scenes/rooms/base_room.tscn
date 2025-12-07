@@ -26,3 +26,27 @@ rotation = -3.1415925
 [node name="DoorManager4" parent="Doors" index="3" instance=ExtResource("2_4x8xk")]
 position = Vector2(0, 128)
 rotation = -1.5707964
+
+[node name="Node2D" type="Node2D" parent="MovePoints" index="0"]
+position = Vector2(56, 56)
+
+[node name="Node2D2" type="Node2D" parent="MovePoints" index="1"]
+position = Vector2(72, 152)
+
+[node name="Node2D3" type="Node2D" parent="MovePoints" index="2"]
+position = Vector2(152, 96)
+
+[node name="Node2D4" type="Node2D" parent="MovePoints" index="3"]
+position = Vector2(192, 48)
+
+[node name="Node2D5" type="Node2D" parent="MovePoints" index="4"]
+position = Vector2(200, 200)
+
+[node name="Node2D6" type="Node2D" parent="MovePoints" index="5"]
+position = Vector2(112, 200)
+
+[node name="Node2D7" type="Node2D" parent="MovePoints" index="6"]
+position = Vector2(48, 216)
+
+[node name="Node2D8" type="Node2D" parent="MovePoints" index="7"]
+position = Vector2(152, 152)
