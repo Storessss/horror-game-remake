@@ -23,3 +23,10 @@ func _process(_delta: float) -> void:
 		if not sound_player.playing:
 			sound_players.erase(sound_player)
 			sound_player.queue_free()
+
+func _ready() -> void:
+	var music_player: AudioStreamPlayer = AudioStreamPlayer.new()
+	music_player.stream = preload("res://sounds/droning1.mp3")
+	music_player.volume_db = -35
+	add_child(music_player)
+	music_player.play()

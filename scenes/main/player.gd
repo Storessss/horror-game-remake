@@ -130,7 +130,7 @@ func send_voice_chunk(frames: PackedVector2Array, caller_id: int) -> void:
 
 @rpc("any_peer", "call_local")
 func play_footstep(audio_position: Vector2) -> void:
-	var sound_player: AudioStreamPlayer2D = MusicPlayer.create_sound_player([
+	MusicPlayer.create_sound_player([
 			preload("res://sounds/footstep1.wav"),
 			preload("res://sounds/footstep2.wav"),
 			preload("res://sounds/footstep3.wav"),
@@ -142,4 +142,4 @@ func play_footstep(audio_position: Vector2) -> void:
 			preload("res://sounds/footstep9.wav"),
 			preload("res://sounds/footstep10.wav"),
 			preload("res://sounds/footstep11.wav"),
-		], audio_position, 500, -5)
+		], audio_position, 500, -20)

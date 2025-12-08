@@ -13,18 +13,18 @@ tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAA
 position = Vector2(-96, -16)
 
 [node name="DoorManager" parent="Doors" index="0" instance=ExtResource("2_4x8xk")]
-position = Vector2(128, 0)
+position = Vector2(128, 8)
 
 [node name="DoorManager2" parent="Doors" index="1" instance=ExtResource("2_4x8xk")]
-position = Vector2(256, 128)
+position = Vector2(248, 128)
 rotation = 1.5707964
 
 [node name="DoorManager3" parent="Doors" index="2" instance=ExtResource("2_4x8xk")]
-position = Vector2(128, 256)
+position = Vector2(128, 248)
 rotation = -3.1415925
 
 [node name="DoorManager4" parent="Doors" index="3" instance=ExtResource("2_4x8xk")]
-position = Vector2(0, 128)
+position = Vector2(8, 128)
 rotation = -1.5707964
 
 [node name="Node2D" type="Node2D" parent="MovePoints" index="0"]

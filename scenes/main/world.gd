@@ -56,3 +56,6 @@ func start_game() -> void:
 	var robot: Entity = preload("res://scenes/entities/robot.tscn").instantiate()
 	robot.global_position = room.global_position + room.room_size / 2
 	add_child(robot)
+	$AudioStreamPlayer.play()
+	await $AudioStreamPlayer.finished
+	$TextToSpeech1D.say("All employees are called to reach the elevators in the lower right part of the facility. Thank you.", "cmu_us_aew")

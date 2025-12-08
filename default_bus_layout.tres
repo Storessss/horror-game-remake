@@ -5,7 +5,7 @@ resource_name = "Capture"
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_j3pel"]
 resource_name = "Reverb"
-room_size = 0.9
+room_size = 0.7
 damping = 0.7
 
 [sub_resource type="AudioEffectEQ10" id="AudioEffectEQ10_j3pel"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dc3se7ecdo8nr"]
+[gd_scene load_steps=31 format=3 uid="uid://dc3se7ecdo8nr"]
 
 [ext_resource type="PackedScene" uid="uid://decx5gy2k1l70" path="res://scenes/entities/entity.tscn" id="1_b251y"]
 [ext_resource type="Texture2D" uid="uid://bdercprs26atf" path="res://sprites/robot_chase1.png" id="2_dbhwj"]
@@ -7,7 +7,26 @@
 [ext_resource type="Texture2D" uid="uid://brp4ut7f68dnm" path="res://sprites/robot_walk1.png" id="5_r2ewj"]
 [ext_resource type="Texture2D" uid="uid://tobn0jyupee4" path="res://sprites/robot_walk2.png" id="6_bqcuw"]
 [ext_resource type="Script" uid="uid://cemaql1lswtlq" path="res://scenes/entities/state_machine/states/Roam.gd" id="7_bg8sc"]
+[ext_resource type="AudioStream" uid="uid://xyd8vw3g7rw3" path="res://sounds/robot_roam1.wav" id="8_acgde"]
 [ext_resource type="Script" uid="uid://brh5nvmvk0w5y" path="res://scenes/entities/state_machine/states/Chase.gd" id="8_r2ewj"]
+[ext_resource type="AudioStream" uid="uid://bp014riox81yy" path="res://sounds/robot_roam2.wav" id="9_x6rrp"]
+[ext_resource type="AudioStream" uid="uid://ckaw7c2cwwgqy" path="res://sounds/robot_roam3.wav" id="10_r1mbi"]
+[ext_resource type="AudioStream" uid="uid://gn24ajc76acs" path="res://sounds/robot_roam4.wav" id="11_m3id6"]
+[ext_resource type="AudioStream" uid="uid://bvojrgjal75yp" path="res://sounds/robot_roam5.wav" id="12_p3520"]
+[ext_resource type="AudioStream" uid="uid://rk1s3v1pxrnn" path="res://sounds/robot_roam6.wav" id="13_dddev"]
+[ext_resource type="AudioStream" uid="uid://bjrobbnsaprje" path="res://sounds/robot_roam7.wav" id="14_sryfs"]
+[ext_resource type="AudioStream" uid="uid://ny00iqscbthd" path="res://sounds/robot_roam8.wav" id="15_f5hu6"]
+[ext_resource type="AudioStream" uid="uid://cj2lvhiueo0mt" path="res://sounds/robot_roam9.wav" id="16_4uufi"]
+[ext_resource type="AudioStream" uid="uid://bmhvrdglhaek6" path="res://sounds/robot_chase1.wav" id="18_0ml76"]
+[ext_resource type="AudioStream" uid="uid://ch2w5e3xenbt6" path="res://sounds/robot_chase2.wav" id="19_dj56h"]
+[ext_resource type="AudioStream" uid="uid://c3m0vu180wigu" path="res://sounds/robot_chase3.wav" id="20_0ku3i"]
+[ext_resource type="AudioStream" uid="uid://ct2cfbhci6le1" path="res://sounds/robot_chase4.wav" id="21_dibgs"]
+[ext_resource type="AudioStream" uid="uid://crualjut1cf8x" path="res://sounds/robot_chase5.wav" id="22_qf1qy"]
+[ext_resource type="AudioStream" uid="uid://cnt4qldsr8y2u" path="res://sounds/robot_chase6.wav" id="23_1l85e"]
+[ext_resource type="AudioStream" uid="uid://cgyi6y623o85a" path="res://sounds/robot_chase7.wav" id="24_kkpoy"]
+[ext_resource type="AudioStream" uid="uid://ntt6hfb5j0rf" path="res://sounds/robot_chase8.wav" id="25_iv02r"]
+[ext_resource type="AudioStream" uid="uid://dsvnv87lrcswd" path="res://sounds/robot_chase9.wav" id="26_pm00f"]
+[ext_resource type="AudioStream" uid="uid://dx12e38mrga43" path="res://sounds/robot_chase10.wav" id="27_p3bst"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cmwni"]
 animations = [{
@@ -49,7 +68,6 @@ radius = 8.0
 radius = 5.0
 
 [node name="Robot" instance=ExtResource("1_b251y")]
-speed = 100
 sight_cone_width = 60
 
 [node name="AnimatedSprite2D" parent="." index="0"]
@@ -68,11 +86,15 @@ initial_state = NodePath("Roam")
 
 [node name="Roam" type="Node" parent="FSM" index="0" node_paths=PackedStringArray("on_player_spotted")]
 script = ExtResource("7_bg8sc")
+speed = 85
 animation = "walk"
+footstep_sounds = Array[AudioStream]([ExtResource("8_acgde"), ExtResource("9_x6rrp"), ExtResource("10_r1mbi"), ExtResource("11_m3id6"), ExtResource("12_p3520"), ExtResource("13_dddev"), ExtResource("14_sryfs"), ExtResource("15_f5hu6"), ExtResource("16_4uufi")])
 on_player_spotted = NodePath("../Chase")
 
 [node name="Chase" type="Node" parent="FSM" index="1" node_paths=PackedStringArray("on_player_lost")]
 script = ExtResource("8_r2ewj")
+speed = 125
 pursue_time = 4.0
 animation = "chase"
+footstep_sounds = Array[AudioStream]([ExtResource("18_0ml76"), ExtResource("19_dj56h"), ExtResource("20_0ku3i"), ExtResource("21_dibgs"), ExtResource("22_qf1qy"), ExtResource("23_1l85e"), ExtResource("24_kkpoy"), ExtResource("25_iv02r"), ExtResource("26_pm00f"), ExtResource("27_p3bst")])
 on_player_lost = NodePath("../Roam")

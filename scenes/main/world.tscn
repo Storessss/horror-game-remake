@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://jbus63oi31f1"]
+[gd_scene load_steps=5 format=3 uid="uid://jbus63oi31f1"]
 
 [ext_resource type="Script" uid="uid://j4dr5sj0hcmd" path="res://scenes/main/world.gd" id="1_iubku"]
 [ext_resource type="Texture2D" uid="uid://cn8in08m7mt3f" path="res://sprites/dirt.png" id="2_iubku"]
+[ext_resource type="Script" uid="uid://sjievreabgil" path="res://addons/text_to_speech/text_to_speech_1d.gd" id="3_y2s00"]
+[ext_resource type="AudioStream" uid="uid://bxx0j8qo8qo1j" path="res://sounds/announcement2.wav" id="4_526id"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_iubku")
@@ -53,6 +55,17 @@ offset_right = 500000.0
 offset_bottom = 500000.0
 texture = ExtResource("2_iubku")
 stretch_mode = 1
+
+[node name="TextToSpeech1D" type="AudioStreamPlayer" parent="."]
+volume_db = -15.0
+bus = &"Voice"
+script = ExtResource("3_y2s00")
+metadata/_custom_type_script = "uid://sjievreabgil"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_526id")
+volume_db = -30.0
+bus = &"Voice"
 
 [connection signal="pressed" from="MultiplayerMenu/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="MultiplayerMenu/Join" to="." method="_on_join_pressed"]

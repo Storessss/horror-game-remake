@@ -1,0 +1,129 @@
+[gd_scene load_steps=13 format=3 uid="uid://rj56xm7bjfo1"]
+
+[ext_resource type="Script" uid="uid://dlgk0epriyfah" path="res://scenes/props/Door.gd" id="1_t1sgj"]
+[ext_resource type="Texture2D" uid="uid://cqvo0tvqff2a6" path="res://sprites/door1.png" id="1_vinnd"]
+[ext_resource type="Texture2D" uid="uid://fkpbxr3b4psu" path="res://sprites/blank.png" id="2_mctn1"]
+[ext_resource type="Texture2D" uid="uid://c2es8sj7sccgj" path="res://sprites/door4.png" id="3_t1sgj"]
+[ext_resource type="Texture2D" uid="uid://ne71drnn7nw4" path="res://sprites/door3.png" id="4_4i3ya"]
+[ext_resource type="Texture2D" uid="uid://dll3p33ef6ajh" path="res://sprites/door2.png" id="5_d4kwg"]
+[ext_resource type="AudioStream" uid="uid://bp2amobeaml8h" path="res://sounds/airlock.wav" id="6_mctn1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7ev4m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vinnd")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mctn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_t1sgj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4i3ya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_d4kwg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_vinnd")
+}],
+"loop": true,
+"name": &"closing",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mctn1")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vinnd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_d4kwg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4i3ya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_t1sgj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mctn1")
+}],
+"loop": true,
+"name": &"opening",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vinnd"]
+size = Vector2(32, 16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_t1sgj"]
+polygon = PackedVector2Array(-16, -8, 16, -8, 16, 8, -16, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mctn1"]
+radius = 30.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5e0ln"]
+properties/0/path = NodePath("CollisionShape2D:disabled")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:animation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("AnimatedSprite2D:frame")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("LightOccluder2D:visible")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("AirlockSound:playing")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
+[node name="Door" type="StaticBody2D"]
+collision_mask = 6
+script = ExtResource("1_t1sgj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7ev4m")
+animation = &"closed"
+autoplay = "closed"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vinnd")
+
+[node name="AirlockSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_mctn1")
+volume_db = -10.0
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_t1sgj")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_mctn1")
+
+[node name="OpeningTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_5e0ln")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
