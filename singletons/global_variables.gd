@@ -16,11 +16,6 @@ func get_local_player() -> Player:
 	var player: Player = get_tree().current_scene.get_node(
 		str(get_tree().get_multiplayer().get_unique_id()))
 	return player
-	
-func is_host() -> bool:
-	if multiplayer.get_unique_id() == 1:
-		return true
-	return false
 
 func line_of_sight(from: Vector2, to: Vector2) -> bool:
 	var space_state = get_tree().current_scene.get_world_2d().direct_space_state

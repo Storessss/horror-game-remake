@@ -20,6 +20,7 @@ func _ready() -> void:
 	generate_confining_rooms()
 	for move_point: Node2D in move_points.get_children():
 		GlobalVariables.move_points.append(move_point)
+
 func generate_confining_rooms() -> void:
 	for i in range(allowed_directions.size()):
 		var direction: Vector2 = allowed_directions.pick_random()

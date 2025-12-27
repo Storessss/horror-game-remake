@@ -142,4 +142,4 @@ func play_footstep(audio_position: Vector2) -> void:
 			preload("res://sounds/footstep9.wav"),
 			preload("res://sounds/footstep10.wav"),
 			preload("res://sounds/footstep11.wav"),
-		], audio_position, 500, -20)
+		], audio_position, 500, -13)

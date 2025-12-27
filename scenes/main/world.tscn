@@ -8,8 +8,12 @@
 [node name="World" type="Node2D"]
 script = ExtResource("1_iubku")
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://dm303ra00yjxp")
+spawn_path = NodePath("..")
+
+[node name="DoorSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://rj56xm7bjfo1")
 spawn_path = NodePath("..")
 
 [node name="MultiplayerMenu" type="CanvasLayer" parent="."]

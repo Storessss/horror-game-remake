@@ -36,7 +36,7 @@ func _del_player(id: int) -> void:
 	get_node(str(id)).queue_free()
 	
 func _process(_delta: float) -> void:
-	if GlobalVariables.is_host() and can_start_game and Input.is_action_just_pressed("ui_accept"):
+	if multiplayer.is_server() and can_start_game and Input.is_action_just_pressed("ui_accept"):
 		can_start_game = false
 		randomize()
 		rpc("set_seed", randi_range(0, 999999))
@@ -44,7 +44,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
 		$Darkness.visible = not $Darkness.visible
 	
-@rpc("any_peer", "call_local")
+@rpc("any_peer", "call_local", "reliable")
 func set_seed(seed: int):
 	seed(seed)
 
@@ -59,3 +59,17 @@ func start_game() -> void:
 	$AudioStreamPlayer.play()
 	await $AudioStreamPlayer.finished
 	$TextToSpeech1D.say("All employees are called to reach the elevators in the lower right part of the facility. Thank you.", "cmu_us_aew")
+
+func _ready() -> void:
+	$DoorSpawner.spawn_function = spawn_door
+
+func spawn_door(data: Dictionary) -> Door:
+	var door: Door = preload("res://scenes/props/door.tscn").instantiate()
+	door.position = data["position"]
+	door.rotation = data["rotation"]
+	var tilemap: TileMapLayer = get_node(data["tilemap"])
+	tilemap.erase_cell(data["node1_local_position"])
+	tilemap.erase_cell(data["node2_local_position"])
+	tilemap.set_floor(data["node1_local_position"], Vector2i(1, 1))
+	tilemap.set_floor(data["node2_local_position"], Vector2i(1, 1))
+	return door
